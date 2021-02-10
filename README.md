@@ -34,3 +34,23 @@ var m sync.Mutex
     m.Unlock()
 ...
 ```
+
+## Channels
+
+To create a channel use the code below
+
+```go
+newChannel := make(chan [type])
+```
+
+To write value in the channel
+
+```go
+newChannel <- value
+```
+
+To read channel value
+
+```go
+anyVariable <- newChannel
+```
