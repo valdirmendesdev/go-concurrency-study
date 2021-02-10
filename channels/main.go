@@ -2,15 +2,45 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
 func main() {
 	//firstExample()
-	ChannelsBetweenProcesses()
+	//ChannelsBetweenProcesses()
+	ChannelsPlusWaitGroup()
 }
 
+func ChannelsPlusWaitGroup()  {
+	var wg sync.WaitGroup
+	channel := make(chan int)
 
+	wg.Add(2)
+	go func() {
+		for i := 0; i < 10; i++ {
+			channel <- i
+		}
+		wg.Done()
+	}()
+
+	go func() {
+		for i := 0; i < 10; i++ {
+			channel <- i
+		}
+		wg.Done()
+	}()
+
+	go func() {
+		wg.Wait()
+		close(channel)
+	}()
+
+	for number := range channel {
+		fmt.Println(number)
+	}
+
+}
 
 func ChannelsBetweenProcesses() {
 	channel := make(chan int)
