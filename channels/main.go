@@ -9,8 +9,23 @@ import (
 func main() {
 	//firstExample()
 	//ChannelsBetweenProcesses()
-	ChannelsPlusWaitGroup()
+	//ChannelsPlusWaitGroup()
+	DeadlockChannel()
 }
+
+func DeadlockChannel() {
+	channel := make(chan int)
+	// Deadlock!
+	//channel <- 10
+
+	go func() {
+		channel <- 10
+	}()
+
+	fmt.Println(<-channel)
+}
+
+
 
 func ChannelsPlusWaitGroup()  {
 	var wg sync.WaitGroup

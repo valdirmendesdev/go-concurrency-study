@@ -43,7 +43,9 @@ To create a channel use the code below
 newChannel := make(chan [type])
 ```
 
-To write value in the channel
+To write value in the channel.
+
+IMPORTANT: Channel value attribution should be executed in a go routine
 
 ```go
 newChannel <- value
